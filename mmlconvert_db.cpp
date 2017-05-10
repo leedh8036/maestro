@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <cstring>
+#include "/usr/include/mysql/mysql.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ int musicRecord[1000][5];//DB형식으로 저장하기 위한 배열
 
 
 
-int main(int argc, char **argv)
+int main()
 {
 	ifstream inStream;
 
@@ -81,8 +82,40 @@ int main(int argc, char **argv)
 
 
 	inStream.close();
+	
+//MySQL 연동
+
+	 MYSQL *conn_ptr;
+        MYSQL_RES *sql_result;
+        MYSQL_ROW sql_row;
+        float arr[4][5] = {{1,0.5,25,2,13}, {2,1.5,25,-1,-1},{3,0.5,32,2,17},{4,2.0,34,2,18}};
+
+        conn_ptr = mysql_init(NULL);
+
+        if(!conn_ptr)
+        {
+                fprintf(stderr, "mysql_init failed\n");
+                return -1;
+        }
+
+        conn_ptr = mysql_real_connect(conn_ptr, "35.161.154.86", "root", "dong8036", "maestro_both_basic", 0, NULL, 0
+);
+
+        //create table
+          const char *query_create = "CREATE TABLE Ptest(no int(11), note_time int(11), note_tune int(11), primary key(no))";
+           int query_stat_2 = mysql_query(conn_ptr, query_create);
+
+        //insert query
+        int len = sizeof(arr) / sizeof(arr[0]);
+        char buffer[256];
+        for(int i =0; i< len; i++)
+        {
+                sprintf(buffer,"INSERT INTO TWINKLESTAR(note_order, note_time_right, note_time_left, note_tune_right, note_tune_left) VALUES(%f,%f,%f,%f,%f)",arr[i][0],arr[i][1],arr[i][2],arr[i][3],arr[i][4]);
+        mysql_query(conn_ptr,buffer);
+        }
 
 
+        mysql_close(conn_ptr);
 
 	return 0;
 }
