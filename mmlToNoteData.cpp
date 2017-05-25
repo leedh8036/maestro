@@ -61,23 +61,7 @@ int main(int argc, char *argv[])
 	}
 
 
-	/*
-	for(int n = 0; n<1000; n++)
-	{
-		// 각배열은 -1로 초기화.
-		musicRecord[n][0] = -1;  //note_order
-		musicRecord[n][1] = -1;  //right_note_time
-		musicRecord[n][2] = -1;  //right_note_tune1
-		musicRecord[n][3] = -1;  //right_note_tune2
-		musicRecord[n][4] = -1;  //right_note_tune3
-		musicRecord[n][5] = -1;  //right_note_tune4
-		musicRecord[n][6] = -1;  //left_note_time
-		musicRecord[n][7] = -1;  //left_note_tune1
-		musicRecord[n][8] = -1;  //left_note_tune2
-		musicRecord[n][9] = -1;  //left_note_tune3
-		musicRecord[n][10] = -1;  //left_note_tune4
-	}
-	*/
+
 	for(int n = 0; n<1000; n++)
         {
                 // 각배열은 -1로 초기화.
